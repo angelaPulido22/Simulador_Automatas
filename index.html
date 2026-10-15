@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Simulador de autómatas finitos</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script defer src="js/automatas.js"></script>
+    <script defer src="js/conversion.js"></script>
+    <script defer src="js/expresiones.js"></script>
+    <script defer src="js/verificador.js"></script>
+    <script defer src="js/diagramas.js"></script>
+    <script defer src="js/interfaz.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="wrap">
+            <p class="eyebrow">TEORÍA DE LA COMPUTACIÓN</p>
+            <h1>Simulador de autómatas finitos</h1>
+            <p class="sub">AFND → AFD · Autómata → expresión regular · Verificación de cadenas</p>
+        </div>
+    </header>
+    <main class="wrap">
+        <section class="panel intro">
+            <div>
+                <h2>Entorno de trabajo</h2>
+                <p>Define un autómata, ejecuta la conversión y revisa el procedimiento. Funciona localmente, sin
+                    internet ni instalación.</p>
+            </div>
+            <div class="actions"><button id="case1" class="secondary">Cargar caso 1</button><button id="case2"
+                    class="secondary">Cargar caso 2</button></div>
+        </section>
+        <section class="panel">
+            <div class="section-head">
+                <div><span class="step">01</span>
+                    <h2>Definición del autómata</h2>
+                </div><button id="runConversion">Validar y convertir AFND → AFD</button>
+            </div>
+            <div class="grid form-grid"><label>Estados <small>Separados por coma</small><input id="states"
+                        value="q0, q1, q2"></label><label>Alfabeto <small>Símbolos separados por coma</small><input
+                        id="alphabet" value="a, b"></label><label>Estado inicial<input id="initial"
+                        value="q0"></label><label>Estados finales <small>Separados por coma</small><input id="finals"
+                        value="q2"></label></div>
+            <div class="table-wrap">
+                <table id="transitionInput">
+                    <thead>
+                        <tr>
+                            <th>Origen</th>
+                            <th>Símbolo</th>
+                            <th>Destino</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="transitionRows"></tbody>
+                </table>
+            </div>
+            <div class="actions"><button id="addTransition" class="secondary">+ Añadir transición</button><button
+                    id="clearTransitions" class="secondary">Limpiar transiciones</button></div>
+            <div id="message" class="message" role="status"></div>
+        </section>
+        <section class="two-col">
+            <article class="panel">
+                <div class="section-head">
+                    <div><span class="step">02</span>
+                        <h2>AFND original</h2>
+                    </div>
+                </div>
+                <div id="afndDiagram" class="diagram empty">El diagrama aparecerá al validar el autómata.</div>
+            </article>
+            <article class="panel">
+                <div class="section-head">
+                    <div><span class="step">03</span>
+                        <h2>AFD resultante</h2>
+                    </div>
+                </div>
+                <div id="afdDiagram" class="diagram empty">Ejecuta la conversión para ver el AFD.</div>
+            </article>
+        </section>
+        <section class="panel">
+            <div class="section-head">
+                <div><span class="step">04</span>
+                    <h2>Tabla del método de subconjuntos</h2>
+                </div>
+            </div>
+            <div id="conversionTable" class="table-wrap empty">La tabla se mostrará al convertir.</div>
+            <h3>Procedimiento paso a paso</h3>
+            <ol id="conversionSteps" class="steps-list">
+                <li>Los pasos aparecerán aquí.</li>
+            </ol>
+        </section>
+        <section class="panel">
+            <div class="section-head">
+                <div><span class="step">05</span>
+                    <h2>Conversión a expresión regular</h2>
+                </div><button id="runRegex">Obtener expresión regular</button>
+            </div>
+            <p class="hint">Se utiliza eliminación de estados (GNFA), un método general para obtener una ER equivalente.
+                Las formas pueden diferir de las expresiones del material de clase, aunque reconozcan el mismo lenguaje.
+            </p>
+            <div class="result-box"><span>Expresión regular</span><output id="regexOutput">—</output><button
+                    id="useRegex" class="secondary" disabled>Usar en verificador</button></div>
+            <ol id="regexSteps" class="steps-list">
+                <li>Convierte un autómata para ver el procedimiento.</li>
+            </ol>
+        </section>
+        <section class="panel">
+            <div class="section-head">
+                <div><span class="step">06</span>
+                    <h2>Verificador de equivalencia</h2>
+                </div><button id="runVerifier">Verificar cadenas</button>
+            </div>
+            <div class="grid verifier-controls"><label>Longitud máxima <small>Mínimo permitido: 6</small><input
+                        type="number" min="6" max="12" value="6" id="maxLength"></label><label class="wide">Expresión
+                    regular a verificar <small>Operadores: + unión, concatenación implícita, * estrella, paréntesis, ε y
+                        ∅</small><input id="regexInput" placeholder="Ej. a(b+a)*"></label></div>
+            <p class="hint">El total de cadenas crece exponencialmente. Para evitar bloquear el navegador, se limita la
+                comprobación a 100 000 cadenas.</p>
+            <div id="verificationSummary" class="summary empty">Ejecuta la verificación para consultar los resultados.
+            </div>
+            <div id="discrepancies" class="table-wrap"></div>
+        </section>
+        <section class="panel">
+            <div class="section-head">
+                <div><span class="step">07</span>
+                    <h2>Prueba manual de una cadena</h2>
+                </div>
+            </div>
+            <div class="inline-form"><label>Cadena de entrada<input id="manualString"
+                        placeholder="Ej. abba"></label><button id="runManual">Evaluar</button></div>
+            <div id="manualResult" class="summary empty">Introduce una cadena y pulsa Evaluar.</div>
+        </section>
+        <footer>Proyecto académico · HTML, CSS y JavaScript nativo · Ejecución local</footer>
+    </main>
+</body>
+
+</html>

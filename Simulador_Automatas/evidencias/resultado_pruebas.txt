@@ -1,0 +1,24 @@
+✓ Valida el caso 1
+✓ Rechaza entrada vacía en el caso 1
+✓ Acepta ab en el AFND
+✓ Rechaza aa en el AFND
+✓ Incluye el conjunto pozo
+✓ El resultado del método de subconjuntos es determinista
+✓ El AFD acepta ab
+✓ El AFD rechaza b
+✓ ER simple acepta a
+✓ ER unión acepta a y b
+✓ ER estrella acepta cadena vacía
+✓ ER estrella acepta aaa
+✓ ER concatenada acepta ab
+✓ ER ∅ no acepta cadena vacía
+✓ ER generada acepta ab
+✓ ER generada rechaza b
+✓ Genera 127 cadenas para alfabeto binario hasta longitud 6
+✓ Rechaza longitud menor que 6
+✓ El verificador no detecta diferencias entre AFND, AFD y ER generada hasta longitud 6
+✓ Caso 2: acepta x en AFND
+✓ Caso 2: rechaza xx en AFND
+✓ Caso 2: expresión generada y autómata coinciden hasta longitud 6
+
+Resultado: 22 aprobadas, 0 fallidas.
